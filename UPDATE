@@ -1,0 +1,5 @@
+--- 2024-01-06 natives-1.0.0 ---
+1. 完成基本功能开发。
+   Basic features complete.
+2. Windows(x64) Linux(x64 aarch64) Android(armhf aarch64)测试通过。
+   Tested on windows(x64) linux(x64 aarch64) android(armhf aarch64). 
