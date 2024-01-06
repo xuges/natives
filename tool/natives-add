@@ -1,0 +1,64 @@
+#!/bin/bash
+
+function version() {
+  echo "xuges-natives add library to jar util script."
+  echo "Version: 1.0.0"
+  echo ""
+}
+
+function usage() {
+  echo "Usage:   $0 <jar> <path> <os_arch> <library>"
+  echo "<jar>      target jar file."
+  echo "<path>     native library save path in jar."
+  echo "<os_arch>  library's platform. etc. windows_x86 windows_x64 linux_x64 linux_arm64 ..."
+  echo "<library>  library file to add."
+  echo "Example:"
+  echo "    Bash: $0 example.jar org/example/libs linux_x64 libexample.so"
+  echo "          # add libexample.so to example.jar!/org/example/libs/linux_x64/libexample.so"
+  echo ""
+  echo "    Java: LibraryLoader.loadFromJar(\"org/example/libs\", \"example\");"
+  echo "          // load the libexample.so library on linux_x64 platform."
+}
+
+if [[ "$1" == "" ]] || [[ "$1" == "-h" ]];then
+  usage
+  exit
+fi
+
+if [[ "$1" == "-v" ]];then
+  version
+  usage
+  exit
+fi
+
+echo "Args:"
+echo "jar:     $1"
+echo "path:    $2"
+echo "os_arch: $3"
+echo "library: $4"
+echo ""
+
+if [[ "$2" == "" ]] || [[ "$3" == "" ]] || [[ "$4" == "" ]];then
+  echo "Please check command line arguments!"
+  usage
+  exit
+fi
+
+TEMP_DIR="/tmp/natives-add-$$"
+LIB_DIR="$2/$3"
+SAVE_DIR="$TEMP_DIR/$LIB_DIR"
+echo "Commands:"
+echo "mkdir -p $SAVE_DIR"
+echo "cp $4 $SAVE_DIR"
+echo "jar -uf $1 -C $TEMP_DIR $LIB_DIR/$4"
+echo "rm -rf $TEMP_DIR"
+echo ""
+
+echo "Are you sure to exec them?(Y/n)"
+read answer
+if [[ "$answer" == "" ]] || [[ "$answer" == "y" ]] || [[ "$answer" == "Y" ]]; then
+  mkdir -p $SAVE_DIR
+  cp $4 $SAVE_DIR
+  jar -uf $1 -C $TEMP_DIR $LIB_DIR/$4
+  rm -rf $TEMP_DIR
+fi
