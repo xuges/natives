@@ -6,7 +6,7 @@
 
 ## 背景
 
-*如果得知当前运行的平台？*
+*如何得知当前运行的平台？*
 
 *如何直接从 JAR包里读取动态库而不用关心动态库放哪？*
 
@@ -62,14 +62,14 @@ try {
 $> ./natives-add example.jar org/example/libs linux_x64 libtest.so
 
 #windows
-$> natives-add example.jar org/example/libs windows_x64 test.dll
+$> natives-add.bat example.jar org/example/libs windows_x64 test.dll
 ```
 
 
 
 ## 特点
 
-*为什么要使用这个库而不是自己实现？*
+*为什么要使用这个库？*
 
 - **多平台支持：** 支持Windows Linux MacOSX Android BSD,  x86 x64 aarch64 mips ppc loongarch64 等等。
 - **简单易用：** 接口简洁，与 Java标准库用法类同，具备配套工具脚本。
