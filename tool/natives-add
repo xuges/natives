@@ -47,10 +47,11 @@ fi
 TEMP_DIR="/tmp/natives-add-$$"
 LIB_DIR="$2/$3"
 SAVE_DIR="$TEMP_DIR/$LIB_DIR"
+LIB_FILE=`basename $4`
 echo "Commands:"
 echo "mkdir -p $SAVE_DIR"
 echo "cp $4 $SAVE_DIR"
-echo "jar -uf $1 -C $TEMP_DIR $LIB_DIR/$4"
+echo "jar -uf $1 -C $TEMP_DIR $LIB_DIR/$LIB_FILE"
 echo "rm -rf $TEMP_DIR"
 echo ""
 
@@ -59,6 +60,6 @@ read answer
 if [[ "$answer" == "" ]] || [[ "$answer" == "y" ]] || [[ "$answer" == "Y" ]]; then
   mkdir -p $SAVE_DIR
   cp $4 $SAVE_DIR
-  jar -uf $1 -C $TEMP_DIR $LIB_DIR/$4
+  jar -uf $1 -C $TEMP_DIR $LIB_DIR/$LIB_FILE
   rm -rf $TEMP_DIR
 fi

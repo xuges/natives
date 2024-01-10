@@ -29,11 +29,12 @@ IF "%4" == "" (
 SET TEMP_DIR=%TEMP%\natives-add-%random%
 SET FILE_PATH=%2\%3
 SET SAVE_DIR=%TEMP_DIR%\%FILE_PATH:/=\%
+SET LIB_FILE=%~nx4
 
 ECHO Commands:
 ECHO MKDIR %SAVE_DIR%
 ECHO COPY %4 %SAVE_DIR%\
-ECHO jar -uf %1 -C %TEMP_DIR% %2/%3/%4 
+ECHO jar -uf %1 -C %TEMP_DIR% %2/%3/%LIB_FILE%
 ECHO RMDIR /S /Q %TEMP_DIR%
 ECHO.
 
@@ -43,7 +44,7 @@ IF "%ANSWER%" == "N" GOTO end
 
 MKDIR %SAVE_DIR%
 COPY %4 %SAVE_DIR%\
-jar -uf %1 -C %TEMP_DIR% %2/%3/%4
+jar -uf %1 -C %TEMP_DIR% %2/%3/%LIB_FILE%
 RMDIR /S /Q %TEMP_DIR%
 
 GOTO end
