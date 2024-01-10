@@ -1,6 +1,7 @@
 package com.github.xuges.natives;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,7 +11,7 @@ import java.util.Objects;
 
 public class LibraryLoader {
     //load library from jar
-    public static void loadFromJar(String path, String baseName) throws UnsatisfiedLinkError {
+    public static void loadFromJar(String path, String baseName) {
         Objects.requireNonNull(path);
         Objects.requireNonNull(baseName);
 
@@ -24,16 +25,21 @@ public class LibraryLoader {
         String jarLibraryFile = getJarLibraryFilePath(path, fullName);
         Path tmpLibraryPath = makeTempFile(fullName);
         saveJarFile(jarLibraryFile, tmpLibraryPath.toString());
-        System.load(tmpLibraryPath.toString());
-        deleteTempFile(tmpLibraryPath);
+        try {
+            System.load(tmpLibraryPath.toString());
+        } catch (Throwable e) {
+            throw new UnsatisfiedLinkError(String.format("natives: load '%s' occurs exception: %s", jarLibraryFile, e));
+        } finally {
+            deleteTempFile(tmpLibraryPath);
+        }
     }
 
     private static void saveJarFile(String path, String target) {
         try (InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(path)) {
             if (stream == null)
-                throw new UnsatisfiedLinkError(String.format("natives: '%s' not found", path));
+                throw new UnsatisfiedLinkError(String.format("natives: 'jar://%s' not found", path));
             Files.copy(stream, Paths.get(target));
-        } catch (Throwable e) {
+        } catch (IOException e) {
             throw new UnsatisfiedLinkError(String.format("natives: save '%s' to '%s' occurs exception: %s", path, target, e));
         }
     }
@@ -45,7 +51,7 @@ public class LibraryLoader {
             Files.createDirectories(libsTmpDir);
             return Paths.get(libsTmpDir.toString(), makeRandomFileName(name + "-", ".temp"));
         } catch (Throwable e) {
-            throw new UnsatisfiedLinkError("natives: handled exception: " + e);
+            throw new UnsatisfiedLinkError(String.format("natives: make '%s' temp file occurs exception: %s", name, e));
         }
     }
 
