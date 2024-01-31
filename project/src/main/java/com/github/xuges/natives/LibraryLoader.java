@@ -18,8 +18,11 @@ public class LibraryLoader {
         if (baseName.isEmpty())
             throw new UnsatisfiedLinkError("natives: empty library name");
 
-        if (Platform.CURRENT.ordinal() == Platform.UNSUPPORTED.ordinal())
-            throw new UnsatisfiedLinkError("natives: unsupported platform");
+        if (Platform.CURRENT.ordinal() == Platform.UNSUPPORTED.ordinal()) {
+            String msg = String.format("natives: unsupported platform: os.name=%s os.arch=%s java.vendor=%s",
+                    System.getProperty("os.name"), System.getProperty("os.arch"), System.getProperty("java.vendor"));
+            throw new UnsatisfiedLinkError(msg);
+        }
 
         String fullName = getLibraryFullName(baseName);
         String jarLibraryFile = getJarLibraryFilePath(path, fullName);
