@@ -74,7 +74,7 @@ $> natives-add example.jar org/example/libs windows_x64 test.dll
 
 *Why use this library?*
 
-- **Multi-Platform:** Windows Linux MacOSX Android BSD,  x86 x64 aarch64 mips ppc loongarch64 and more.
+- **Multi-Platform:** Windows Linux MacOSX BSD,  x86 x64 aarch64 mips ppc loongarch64 and more.
 - **Easy-To-Use:** Simple API (like System.loadLibrary) and tool scripts.
 - **Production-Ready:** Automatic clean temporary file and production validated.
 

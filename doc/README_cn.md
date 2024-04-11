@@ -71,7 +71,7 @@ $> natives-add.bat example.jar org/example/libs windows_x64 test.dll
 
 *为什么要使用这个库？*
 
-- **多平台支持：** 支持Windows Linux MacOSX Android BSD,  x86 x64 aarch64 mips ppc loongarch64 等等。
+- **多平台支持：** 支持Windows Linux MacOSX BSD系统,  x86 x64 aarch64 mips ppc loongarch64指令集，等等。
 - **简单易用：** 接口简洁，与 Java标准库用法类同，具备配套工具脚本。
 - **生产可用：** 自动清理临时文件，经过生产环境验证。
 
