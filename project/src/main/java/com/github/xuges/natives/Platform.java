@@ -10,6 +10,8 @@ public enum Platform {
         Platform current = _AUTO;
         if (OS.CURRENT.ordinal() == OS.UNKNOWN.ordinal() || Arch.CURRENT.ordinal() == Arch.UNKNOWN.ordinal())
             current = UNSUPPORTED;
+        else if (OS.CURRENT.ordinal() == OS.ANDROID.ordinal())
+            current = UNSUPPORTED;
         CURRENT = current;
     }
 
